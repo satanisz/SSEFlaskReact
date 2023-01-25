@@ -4,54 +4,33 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import {Button} from "react-bootstrap";
-import dark_logo_small from '../Assets/Images/dark_logo_small.png';
+import logo_small_deathly_hallow from '../Assets/Images/Deathly_Hallows_Sign.png';
 import "../style.css";
 
 function NavigationBar(props) {
-    const lineName = JSON.parse(localStorage.getItem('currentLine'))
+    
 
     return (
         
-        <Navbar bg="dark" variant="dark" className="myNavbar mb-4">
+        <Navbar bg="secondary" variant="secondary" className="myNavbar mb-4">
             <Container>
                 <Navbar.Text>
-                    Line: {lineName}
+                    Welcome
                 </Navbar.Text>
-                <p>{lineName}</p>
+
                 <Navbar.Brand href="/"><img
-                            src={dark_logo_small}
+                            src={logo_small_deathly_hallow}
                             width="50"
                             height="40"
                             className="d-inline-block align-top"
-                            alt="dark_logo_small"
+                            alt="logo_small_deathly_hallow"
                             />
-                    </Navbar.Brand>
+                </Navbar.Brand>
                 
                 <Nav className="me-auto">
-                    <Nav.Link href="/about">About</Nav.Link>  
-                    <NavDropdown title="Options" id="navbarScrollingDropdown" collapseonselect="true">
-                        <NavDropdown.Item href="/filters">Filters</NavDropdown.Item>
-                        <NavDropdown.Item href="/filtering-algorithms">Filtering algorithms</NavDropdown.Item>                    
-                        <NavDropdown.Item href="/calculations">Calculations</NavDropdown.Item>                    
-                    </NavDropdown>
-                    <Nav.Link href="/calculation">Calculation</Nav.Link>
-                    <NavDropdown title="New option" id="navbarScrollingDropdown" collapseonselect="true">
-                        <NavDropdown.Item href="/new-filter">New filter</NavDropdown.Item>
-                        <NavDropdown.Item href="/new-filtering-algorithm">New filtering algorithm</NavDropdown.Item>
 
-                    </NavDropdown>
-                    
-                    <NavDropdown title="Test pages" id="navbarScrollingDropdown" collapseonselect="true">
-                        <NavDropdown.Item href="/test-page">Page 1 </NavDropdown.Item>  
-                        <NavDropdown.Item href="/test-page02">Page 2 </NavDropdown.Item>  
-                        <NavDropdown.Item href="/test-page03">Page 3 </NavDropdown.Item>  
-                        <NavDropdown.Item href="/test-page04">Page 4 </NavDropdown.Item>  
-                    </NavDropdown>
-                    <Nav.Link title="${lineName} Flows" href="/FlowLine">{lineName} Line</Nav.Link>
-                    <Button href="http://localhost:5000/" variant="secondary">Stary Web Serwis</Button>
-                    {/* <Button href="http://dark-api.ispatcee.com/" variant="secondary">Stary Web Serwis</Button>  */}
-                    <Button href="/stanisz-test" variant="warning">IMPORT MES</Button>
-                    <Button href="http://dark-api.ispatcee.com/ExportMESdb/1" variant="danger"> DOWNLOAD </Button>
+                    <Button href="/server-sent" variant="success">IMPORT DB</Button>
+                    <Button href="http://localhost:5000/ExportDB" variant="danger"> DOWNLOAD </Button>
 
                     {/* <Nav.Link href="#home">About</Nav.Link>
                     <Nav.Link href="#features">Options</Nav.Link>

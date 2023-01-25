@@ -1,12 +1,11 @@
 import React from 'react';
-import MultiStageSwitch from '../../Components/MultiStageSwitch';
 import useFetch from "../../Hook/useFetch"
 
 import {Button} from "react-bootstrap";
 
 
 
-function StaniszTest(props) {
+function ServerSentPage(props) {
 
     // comunication with API
     const sendFetchRequest = useFetch()
@@ -15,15 +14,6 @@ function StaniszTest(props) {
     const [MESDataDB, setMESDataDB] = React.useState(null)
     
 
-
-    // function validateData(){ 
-    //     let errors = validateFilterData(filterTitle, linesData, existingFilters, attributeNames)
-    //     setErrorValidation(errors)
-    //     if (errors.length > 0){
-    //         return false
-    //     }            
-    //     return true 
-    // }
     
     function setDataXYZInfo(data, isPending, error){
         if(!isPending){
@@ -58,13 +48,10 @@ function StaniszTest(props) {
     }
 
 
-
-
-
     return (
         <>
         {/* <Button onClick={createFilter}>RUN</Button>  */}
-        <Button onClick={downloadMES}>RUN</Button>
+        <Button variant="secondary" onClick={downloadMES}>RUN</Button>
             {/* <div className='d-grid gap-2 col-8 mx-auto'>
                 <MultiStageSwitch
                     title='mySwitch1'
@@ -81,4 +68,4 @@ function StaniszTest(props) {
     );
 }
 
-export default StaniszTest;
+export default ServerSentPage;
