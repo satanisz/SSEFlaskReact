@@ -1,0 +1,50 @@
+.content-container{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.line-container{
+    display: flex;
+}
+
+.alert-message{
+    
+}
+
+
+.div-error-container{
+    margin-top: 20px;
+    color:red;
+    background-color: rgb(255, 192, 192);
+    width: auto;
+    padding: 0px;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.div-error-header-active{
+    cursor: pointer;
+    min-height: 30px; 
+}
+
+.div-error-header-inactive{
+    min-height: 30px; 
+}
+
+
+
+.div-error-info-container{
+    background-color: #ffffff;
+    border: 1px solid rgb(255, 192, 192);
+}
+
+
+.damage-component-info-tree{
+    padding: 20px;
+    color: #b94a48;
+}
+  
+.damage-component-info-tree li {
+    text-align: left; /* align text to the left */
+}
+  

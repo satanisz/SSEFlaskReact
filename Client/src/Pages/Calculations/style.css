@@ -1,0 +1,35 @@
+table{
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td{
+    background-color: #ecd0d0;
+}
+
+calculation-preview-deallocation{
+    background-color: #e75151;
+}
+
+.component-value-field-preview{
+    display: flex;
+    align-items: center;
+    height: 30px;
+    background-color: rgb(242, 242, 242);
+    border: solid;
+    border-color: #cccfd1;
+    border-width: 1px;
+    padding: 0px;
+    border-radius: 3px;
+    padding-left: 4px; 
+}
+
+.error{
+    background-color: #ecd0d0;
+    color: #e75151;;
+}

@@ -1,0 +1,33 @@
+.preview---element{
+
+}
+
+.preview---bracket{
+    color: red;
+    font-weight: 900;
+    font-size: 30px;
+}
+
+.preview---logical-operator{
+    color: blue;
+    font-weight: 900;
+}
+
+.preview---undefined{
+    background-color: red;
+
+}
+.preview---line-active
+{
+    border-style: dotted;
+    border-width: 3px;
+    border-color: blueviolet;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.preview---existing-filter{
+    color: rgb(20, 173, 0);
+    font-weight: 700;
+
+}
