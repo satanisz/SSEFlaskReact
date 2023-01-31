@@ -1,29 +1,35 @@
 import logging
 
-from flask import Blueprint
-from app import API
+from flask import Blueprint, Response, jsonify
+
 from flask_restful import Resource
 
-from flask import jsonify
-from threading import Thread
 
-import datetime
+from threading import Thread
+import queue
+from datetime import datetime
 import time
 from app.DBbase.DBtime import importDB
+import random
+import json
+import gevent
+# from flask_sse import sse
 
 api_importDB = Blueprint('importDB_api', __name__)
-prefix = "/importDB"
+
+
 
 db_connection = importDB(status = -1)
 status = db_connection.status
 dbstatus = db_connection.dbstatus
 
 
-class apiDBImport(Resource):
+# Blueprint with REST
+class ApiDBImport(Resource):
 
     def get(self):
 
-        print("apiDBImport.get()")
+        print("ApiDBImport.get()")
         t1 = Thread(target=task)
         t1.start()
 
@@ -37,7 +43,7 @@ class apiDBImport(Resource):
 
         :return:
         """
-        print("dartabaseApi.apiDBImport.tast()")
+        print("dartabaseApi.ApiDBImport.tast()")
 
         try:
 
@@ -56,7 +62,86 @@ class apiDBImport(Resource):
                 error=True
             )
 
-API.add_resource(apiDBImport, prefix + "/import")
+
+
+
+
+
+class MessageAnnouncer:
+
+    def __init__(self):
+        self.listeners = []
+
+    def listen(self):
+        q = queue.Queue(maxsize=5)
+        self.listeners.append(q)
+        return q
+
+    def announce(self, msg):
+        for i in reversed(range(len(self.listeners))):
+            try:
+                self.listeners[i].put_nowait(msg)
+            except queue.Full:
+                del self.listeners[i]
+
+announcer = MessageAnnouncer()
+
+
+
+
+
+@api_importDB.route('/listen') # , methods=['GET']
+def listen():
+    print("listen()")
+
+    def event():
+        i = 0
+        while i < 10:
+            print("event() ", i)
+            i += 1
+            # yield 'data: ' + json.dumps(random.rand(1000).tolist()) + '\n\n'
+            time.sleep(1)
+            yield f"data:  {random.randint(0, 100)} \n\n"
+    def stream():
+        print("listen().stream()")
+        messages = announcer.listen()  # returns a queue.Queue
+        while True:
+            msg = messages.get()  # blocks until a new message arrives
+            print(msg)
+            yield msg
+
+
+    # return Response(stream(), mimetype='text/event-stream')
+    return Response(event(), mimetype='text/event-stream')
+
+
+
+@api_importDB.route('/stream')
+def stream():
+    def get_data():
+        i = 0
+        while i < 10:
+            print("event() ", i)
+            i += 1
+            # gotcha
+            time.sleep(1)
+            yield f'data: {datetime.now().second} \n\n'
+
+    return Response(get_data(), mimetype='text/event-stream')
+
+# @api_importDB.route('/listen', methods=['GET'])
+# def listen():
+#     print("listen()")
+#
+#     # return Response(event(), mimetype='text/event-stream')
+#     return sse.publish({"message": datetime.now()}, type='publish')
+#
+#
+#
+#
+
+
+
 
 def updateMES():
 

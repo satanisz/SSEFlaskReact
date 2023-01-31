@@ -30,24 +30,8 @@ function NavigationBar(props) {
                 <Nav className="me-auto">
 
                     <Button href="/server-sent" variant="success">IMPORT DB</Button>
-                    <Button href="http://localhost:5000/ExportDB" variant="danger"> DOWNLOAD </Button>
+                    <Button href="http://localhost:5000/download" variant="danger"> DOWNLOAD </Button>
 
-                    {/* <Nav.Link href="#home">About</Nav.Link>
-                    <Nav.Link href="#features">Options</Nav.Link>
-                    <Nav.Link href="#pricing">Calculation</Nav.Link>
-                    <Nav.Link href="#pricing">Flows</Nav.Link>
-                    <NavDropdown title="Link" id="navbarScrollingDropdown" collapseOnSelect={true}>
-                        <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action5">
-                            Something else here
-                        </NavDropdown.Item>
-                    </NavDropdown>
-                    <Nav.Link href="#pricing">Flows</Nav.Link>
-                    <Button variant="secondary">Secondary</Button>{' '}
-                    <Button variant="secondary">Secondary</Button>{' '}
-                    <Button variant="primary">export db3</Button> */}
                 </Nav>
             </Container>
         </Navbar>

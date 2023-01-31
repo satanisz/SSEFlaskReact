@@ -10,75 +10,106 @@ import {Button, Card, ProgressBar, Row} from "react-bootstrap";
 
 
 function ProgressBarComponent() {
-    const [fetching, setFetching] = useState(false);
-    const [selectedFile, setFiles] = useState(undefined);
-    const [uploadPercentage, setUploadPercentage] = useState(70);
+    // const [fetching, setFetching] = useState(false);
+    // const [selectedFile, setFiles] = useState(undefined);
+    // const [uploadPercentage, setUploadPercentage] = useState(0);
 
-    const [allowUpload, setAllowUpload] = useState(false);
+    // const [allowUpload, setAllowUpload] = useState(false);
     
+    // const handleSubmit = (event) => {
+    // //   event.preventDefault();
+    //   const data = new FormData();
+    //   data.append("file", selectedFile);
+    //   let url = "http://localhost:5000/api/importDB/import";
+    //   const eventSource = new EventSource("http://localhost:5000/listen"); // EventSource("http://localhost:5000/api/importDB/listen");
+    //   let guidValue = null;
+  
+    //   eventSource.addEventListener("GUI_ID", (event) => {
+    //     guidValue = JSON.parse(event.data);
+    //     console.log(`Guid from server: ${guidValue}`);
+    //     data.append("guid", guidValue);
+    //     eventSource.addEventListener(guidValue, (event) => {
+    //       const result = JSON.parse(event.data);
+    //       if (uploadPercentage !== result) {
+    //         setUploadPercentage(result);
+    //       }
+    //       if (result === "100") {
+    //         eventSource.close();
+    //       }
+    //     });
+    //     uploadToServer(url, data);
+    //   });
+  
+    //   eventSource.onerror = (event) => {
+    //     if (event.target.readyState === EventSource.CLOSED) {
+    //       console.log("SSE closed (" + event.target.readyState + ")");
+    //     }
+    //     setUploadPercentage(0);
+    //     eventSource.close();
+    //   };
+  
+    //   eventSource.onopen = () => {
+    //     console.log("connection opened");
+    //   };
+    // };
+  
+    // const uploadToServer = (url, data) => {
+    //   setFetching(true);
+    //   console.log("Upload File");
+    //   let currentFile = selectedFile;
+    //   console.log(currentFile);
+  
+    //   const requestOptions = {
+    //     method: "POST",
+    //     mode: "no-cors",
+    //     body: data,
+    //   };
+    //   fetch(url, requestOptions).then(() => setAllowUpload(false));
+    // };
+
+    // const [uploadPercentage, setUploadPercentage] = useState(0);
+
+    // var source = new EventSource("http://localhost:5000/listen");
+    // source.addEventListener('publish', function(event) {
+    //     var data = JSON.parse(event.data);
+    //     console.log("The server says " + data.message);
+    // }, false);
+    // source.addEventListener('error', function(event) {
+    //     console.log("Error"+ event)
+    //     alert("Failed to connect to event stream. Is Redis running?");
+    // }, false);
+
+    const [uploadPercentage, setUploadPercentage] = useState(0);
     const handleSubmit = (event) => {
-      event.preventDefault();
-      const data = new FormData();
-      data.append("file", selectedFile);
-      let url = "http://localhost:8080/api/import";
-      const eventSource = new EventSource("http://localhost:8080/api/progress");
-      let guidValue = null;
-  
-      eventSource.addEventListener("GUI_ID", (event) => {
-        guidValue = JSON.parse(event.data);
-        console.log(`Guid from server: ${guidValue}`);
-        data.append("guid", guidValue);
-        eventSource.addEventListener(guidValue, (event) => {
-          const result = JSON.parse(event.data);
-          if (uploadPercentage !== result) {
-            setUploadPercentage(result);
-          }
-          if (result === "100") {
-            eventSource.close();
-          }
-        });
-        uploadToServer(url, data);
-      });
-  
-      eventSource.onerror = (event) => {
-        if (event.target.readyState === EventSource.CLOSED) {
-          console.log("SSE closed (" + event.target.readyState + ")");
-        }
-        setUploadPercentage(0);
-        eventSource.close();
-      };
-  
-      eventSource.onopen = () => {
-        console.log("connection opened");
-      };
-    };
-  
-    const uploadToServer = (url, data) => {
-      setFetching(true);
-      console.log("Upload File");
-      let currentFile = selectedFile;
-      console.log(currentFile);
-  
-      const requestOptions = {
-        method: "POST",
-        mode: "no-cors",
-        body: data,
-      };
-      fetch(url, requestOptions).then(() => setAllowUpload(false));
-    };
+        
+        var source = new EventSource("http://localhost:5000/listen");
+        source.addEventListener("open", function(event) {
+            var data = JSON.parse(event.data);
+            console.log("The server open " + data.message);
+        }, false);
+        source.addEventListener('publish', function(event) {
+            var data = JSON.parse(event.data);
+            console.log("The server says " + data.message);
+        }, false);
+        source.addEventListener('error', function(event) {
+            console.log("Error_"+ event)
+            alert("Failed to connect to event stream. Is Redis running?");
+        }, false);
+    }
+
   // percent={(uploadPercentage / 100) * 100} />
     return (
       <div>
 
           <br></br>
-            {fetching &&
+            {//fetching &&
 
             <ProgressBar disabled animated now={uploadPercentage} label={`${uploadPercentage}%`} />
             }
 
           <br></br>
 
-            {fetching &&
+            {//fetching &&
               (uploadPercentage / 100) * 100 !== 100 &&
               `Uploading [${(uploadPercentage / 100) * 100}/100]%`}
             {(uploadPercentage / 100) * 100 === 100 &&
@@ -86,7 +117,8 @@ function ProgressBarComponent() {
 
           <br />
 
-            <Button type="primary submit" variant="success" disabled={allowUpload} onClick={handleSubmit}>
+            {/* <Button type="primary submit" variant="success" disabled={allowUpload} onClick={handleSubmit}> */}
+            <Button type="primary submit" variant="success" onClick={handleSubmit}>
             IMPORT
             </Button>
 
