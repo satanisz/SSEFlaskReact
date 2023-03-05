@@ -125,9 +125,54 @@ def stream():
             i += 1
             # gotcha
             time.sleep(1)
-            yield f'data: {datetime.now().second} \n\n'
+            # yield f'data: {datetime.now().second} \n\n'
+            yield str(datetime.now().second)
 
     return Response(get_data(), mimetype='text/event-stream')
+
+def check_if_finished():
+    return False
+
+def should_send_event():
+    return True
+
+@api_importDB.route("/sse")
+def sse():
+
+    print("## SSE")
+    def trackerStream():
+        # finished = check_if_finished()
+        i = 0
+        while i < 10:
+            print("event() ", i)
+            i += 1
+            time.sleep(1) # poll timeout
+            if should_send_event():
+                yield f"data: {datetime.now().second}\n\n"
+            else:
+                yield f"data: nodata\n\n"
+
+            # finished = check_if_finished()
+
+        yield f"data: finished\n\n"
+
+    return Response(trackerStream(), mimetype="text/event-stream")
+
+@api_importDB.route('/test')
+def test():
+
+    name = "test"
+    flowsData = [{"a": 1, "b": 2}, {"a": 10, "b": 20}, {"a": 11, "b": 22}]
+
+    results = jsonify({
+        "message": "Ok",
+        "category": "flow",
+        "status": "Ok",
+        "line": name,
+        "data": flowsData
+    })
+    return results
+
 
 # @api_importDB.route('/listen', methods=['GET'])
 # def listen():
